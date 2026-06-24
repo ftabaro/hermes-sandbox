@@ -32,15 +32,15 @@ RUN install -d -m 0755 /etc/apt/keyrings \
 
 # --- glab (GitLab CLI) — official release tarball ----------------------------
 # Bump GLAB_VERSION to upgrade; releases: https://gitlab.com/gitlab-org/cli/-/releases
-#ARG GLAB_VERSION=1.71.0
-#RUN set -euo pipefail; \
-#    arch="$(dpkg --print-architecture)"; \
-#    case "$arch" in amd64) ga=amd64 ;; arm64) ga=arm64 ;; *) echo "unsupported arch $arch" >&2; exit 1 ;; esac; \
-#    curl -fsSL "https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_VERSION}/downloads/glab_${GLAB_VERSION}_linux_${ga}.tar.gz" -o /tmp/glab.tgz; \
-#    tar -xzf /tmp/glab.tgz -C /usr/local/bin --strip-components=1 bin/glab; \
-#    rm -f /tmp/glab.tgz; \
-#    glab --version
-#
+ARG GLAB_VERSION=1.71.0
+RUN set -euo pipefail; \
+    arch="$(dpkg --print-architecture)"; \
+    case "$arch" in amd64) ga=amd64 ;; arm64) ga=arm64 ;; *) echo "unsupported arch $arch" >&2; exit 1 ;; esac; \
+    curl -fsSL "https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_VERSION}/downloads/glab_${GLAB_VERSION}_linux_${ga}.tar.gz" -o /tmp/glab.tgz; \
+    tar -xzf /tmp/glab.tgz -C /usr/local/bin --strip-components=1 bin/glab; \
+    rm -f /tmp/glab.tgz; \
+    glab --version
+
 # --- next tool: add a new "# --- <tool> ---" block here and rebuild ----------
 
 USER pn
